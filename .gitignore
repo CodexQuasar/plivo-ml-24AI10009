@@ -1,0 +1,26 @@
+# Python bytecode and caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Temporary extraction folders from the handout
+_handout_tmp/
+_starter_tmp/
+
+# Generated submission artifacts
+english_predictions.csv
+hindi_predictions.csv
+eot_data/english/predictions.csv
+eot_data/hindi/predictions.csv
+eot_model.pkl
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/

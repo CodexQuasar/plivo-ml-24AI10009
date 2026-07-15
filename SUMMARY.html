@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EOT Assignment Summary</title>
+  <style>
+    :root {
+      --bg: #f5f1ea;
+      --panel: #fffaf3;
+      --ink: #1f2328;
+      --muted: #5f6b78;
+      --accent: #b85c38;
+      --accent-2: #1f6f8b;
+      --line: rgba(31, 35, 40, 0.12);
+      --shadow: 0 18px 60px rgba(31, 35, 40, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(184, 92, 56, 0.12), transparent 30%),
+        radial-gradient(circle at top right, rgba(31, 111, 139, 0.12), transparent 28%),
+        linear-gradient(180deg, #fbf7f1 0%, var(--bg) 100%);
+    }
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 40px 24px 64px;
+    }
+    header {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font: 700 12px/1.2 Arial, sans-serif;
+      color: var(--accent-2);
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      line-height: 0.98;
+      max-width: 12ch;
+    }
+    .lede {
+      max-width: 72ch;
+      font: 400 1.05rem/1.7 Arial, sans-serif;
+      color: var(--muted);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+    .card {
+      background: rgba(255, 250, 243, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+      backdrop-filter: blur(6px);
+    }
+    .span-7 { grid-column: span 7; }
+    .span-5 { grid-column: span 5; }
+    .span-12 { grid-column: span 12; }
+    h2 {
+      margin: 0 0 12px;
+      font: 700 1.2rem/1.2 Arial, sans-serif;
+      letter-spacing: -0.02em;
+    }
+    p, li {
+      font: 400 1rem/1.7 Arial, sans-serif;
+      color: var(--ink);
+    }
+    .muted { color: var(--muted); }
+    ul { margin: 10px 0 0 18px; padding: 0; }
+    .pillrow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(31, 111, 139, 0.06);
+      font: 600 0.9rem/1 Arial, sans-serif;
+    }
+    .pill strong { color: var(--accent); }
+    .metric {
+      display: grid;
+      gap: 8px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(31, 111, 139, 0.06), rgba(184, 92, 56, 0.04));
+    }
+    .metric .value {
+      font: 700 2rem/1 Arial, sans-serif;
+      color: var(--accent-2);
+    }
+    .metric .label {
+      font: 700 0.82rem/1.2 Arial, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .chart {
+      display: grid;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .chart-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 72px;
+      align-items: center;
+      gap: 12px;
+      font: 600 0.95rem/1.2 Arial, sans-serif;
+    }
+    .bar-wrap {
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(31, 35, 40, 0.08);
+      overflow: hidden;
+      border: 1px solid rgba(31, 35, 40, 0.08);
+    }
+    .bar {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent-2), #5ba6bf);
+    }
+    .bar.alt {
+      background: linear-gradient(90deg, var(--accent), #e08b63);
+    }
+    code {
+      padding: 0.15rem 0.35rem;
+      border-radius: 6px;
+      background: rgba(31, 35, 40, 0.08);
+      font-size: 0.95em;
+    }
+    .footer {
+      margin-top: 26px;
+      font: 400 0.9rem/1.6 Arial, sans-serif;
+      color: var(--muted);
+    }
+    @media (max-width: 860px) {
+      .span-7, .span-5, .span-12 { grid-column: span 12; }
+      .wrap { padding-inline: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="kicker">End-of-Turn Detection Assignment</div>
+      <h1>Build a model that predicts when a speaker is done talking.</h1>
+      <p class="lede">
+        This project is about end-of-turn detection for a live voice agent. For every pause inside a user turn,
+        the model must estimate the probability that the user is actually finished, while only using audio that has
+        already happened.
+      </p>
+    </header>
+
+    <section class="grid">
+      <article class="card span-7">
+        <h2>What the PDF asks for</h2>
+        <p>
+          The handout describes a real-time endpointing problem: at each pause, decide whether to respond now or keep
+          waiting. The hard rule is causality, so features for a pause may only use audio from the start of the turn up
+          to <code>pause_start</code>. Future audio, including <code>pause_end</code>, is forbidden.
+        </p>
+        <p>
+          The scorer simulates a live agent and reports mean response delay at a false-cutoff budget of 5%. Lower is
+          better, but the model must keep interruptions under control.
+        </p>
+        <div class="pillrow">
+          <div class="pill"><strong>CPU only</strong> training and inference</div>
+          <div class="pill"><strong>No</strong> pretrained models</div>
+          <div class="pill"><strong>No</strong> external datasets</div>
+          <div class="pill"><strong>Allowed</strong> numpy, scipy, sklearn, pandas, librosa, PyTorch</div>
+        </div>
+      </article>
+
+      <aside class="card span-5">
+        <h2>Current starter state</h2>
+        <div class="metric">
+          <div class="label">Entry point</div>
+          <div class="value">predict.py</div>
+          <div class="muted">Runs as <code>python predict.py --data_dir &lt;folder&gt; --out predictions.csv</code></div>
+        </div>
+        <div style="height: 14px"></div>
+        <div class="metric">
+          <div class="label">Current model</div>
+          <div class="value">Causal ensemble</div>
+          <div class="muted">Pause timing, energy, pitch, voiced fractions, and trajectory summaries from the last 1.5 s.</div>
+        </div>
+      </aside>
+
+      <article class="card span-12">
+        <h2>Dataset structure</h2>
+        <p>
+          The archive contains English and Hindi folders. Each has an <code>audio</code> directory with one WAV per turn
+          and a <code>labels.csv</code> file listing pauses within each turn. Each row labels a pause as either
+          <code>hold</code> or <code>eot</code>.
+        </p>
+        <ul>
+          <li><code>turn_id</code> identifies the user turn.</li>
+          <li><code>audio_file</code> points to the WAV file.</li>
+          <li><code>pause_index</code> counts the pauses within a turn.</li>
+          <li><code>pause_start</code> and <code>pause_end</code> define the annotated silence.</li>
+          <li><code>label</code> tells whether the user continues or ends the turn.</li>
+        </ul>
+      </article>
+
+      <article class="card span-7">
+        <h2>What has been implemented</h2>
+        <ul>
+          <li><code>predict.py</code> produces the required submission CSV format.</li>
+          <li><code>features.py</code> provides causal audio loading, framing, energy, and pitch utilities.</li>
+          <li><code>modeling.py</code> extracts prosodic features and trains a logistic regression classifier.</li>
+          <li><code>baseline.py</code> and <code>score.py</code> mirror the starter interface and evaluation logic.</li>
+          <li><code>RUNLOG.md</code> and <code>NOTES.md</code> track the first validated results and modeling observations.</li>
+        </ul>
+      </article>
+
+      <article class="card span-5">
+        <h2>Human vs coding agent</h2>
+        <p class="muted">The handout asks for a summary of what was done by each side.</p>
+        <ul>
+          <li><strong>Human:</strong> provided the assignment framing, listened to the data, and directed iteration.</li>
+          <li><strong>Coding agent:</strong> built the starter pipeline, feature extractor, scorer, docs, and submission files.</li>
+          <li><strong>Why it matters:</strong> the final score comes from the actual model features and calibration beyond the starter baseline.</li>
+        </ul>
+      </article>
+
+      <article class="card span-5">
+        <h2>Validated scores</h2>
+        <p class="muted">Initial run on the provided data after replacing the silence baseline.</p>
+        <div class="metric">
+          <div class="label">English</div>
+          <div class="value">742 ms</div>
+          <div class="muted">Best mean response delay at ≤ 5% interrupted turns</div>
+        </div>
+        <div style="height: 14px"></div>
+        <div class="metric">
+          <div class="label">Hindi</div>
+          <div class="value">586 ms</div>
+          <div class="muted">Best mean response delay at ≤ 5% interrupted turns</div>
+        </div>
+      </article>
+
+      <article class="card span-12">
+        <h2>Plot: response delay comparison</h2>
+        <p class="muted">
+          The handout asks for graphs in the summary, so this report includes a simple visual comparison between the
+          silence baseline reference point from the PDF and the current validated runs.
+        </p>
+        <div class="chart">
+          <div class="chart-row">
+            <div>Silence baseline</div>
+            <div class="bar-wrap"><div class="bar alt" style="width: 100%;"></div></div>
+            <div>1600 ms</div>
+          </div>
+          <div class="chart-row">
+            <div>English</div>
+            <div class="bar-wrap"><div class="bar" style="width: 46.4%;"></div></div>
+            <div>742 ms</div>
+          </div>
+          <div class="chart-row">
+            <div>Hindi</div>
+            <div class="bar-wrap"><div class="bar" style="width: 36.6%;"></div></div>
+            <div>586 ms</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card span-12">
+        <h2>Why this should beat silence-only</h2>
+        <p>
+          The silence baseline treats every pause as a turn ending. That is simple, but it waits only on silence and
+          ignores whether the speaker is still building the utterance. The current model adds causal cues from the
+          speech immediately before the pause: energy drop, pitch contour, voiced segment length, and other short-term
+          prosodic signals. Those features help distinguish a real terminal pause from a mid-turn hesitation.
+        </p>
+        <p>
+          The next likely improvements are better pause-position features, more robust voiced-region summaries, and
+          calibration work to tune the false-cutoff tradeoff more aggressively.
+        </p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
